@@ -37,7 +37,7 @@ no_index:
 provides:
   AnyEvent::WebSocket::Server:
     file: lib/AnyEvent/WebSocket/Server.pm
-    version: 0.01
+    version: 0.02
 requires:
   AnyEvent::Handle: 0
   AnyEvent::WebSocket::Client: 0.17
@@ -46,4 +46,4 @@ requires:
   Try::Tiny: 0
 resources:
   repository: git://github.com/debug-ito/AnyEvent-WebSocket-Server.git
-version: 0.01
+version: 0.02

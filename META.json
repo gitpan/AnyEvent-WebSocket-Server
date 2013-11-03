@@ -61,7 +61,7 @@
    "provides" : {
       "AnyEvent::WebSocket::Server" : {
          "file" : "lib/AnyEvent/WebSocket/Server.pm",
-         "version" : "0.01"
+         "version" : "0.02"
       }
    },
    "release_status" : "stable",
@@ -70,5 +70,5 @@
          "url" : "git://github.com/debug-ito/AnyEvent-WebSocket-Server.git"
       }
    },
-   "version" : "0.01"
+   "version" : "0.02"
 }

@@ -7,7 +7,7 @@ use Protocol::WebSocket::Handshake::Server;
 use Try::Tiny;
 use AnyEvent::WebSocket::Connection;
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 sub new {
     my ($class, %args) = @_;
@@ -42,9 +42,12 @@ sub _do_handshake {
         ## half-immortal.
         try {
             if(!defined($handshake->parse($handle->{rbuf}))) {
-                die "handshake: error" . $handshake->error . "\n";
+                die "handshake error: " . $handshake->error . "\n";
             }
             return if !$handshake->is_done;
+            if($handshake->version ne "draft-ietf-hybi-17") {
+                die "handshake error: unsupported WebSocket protocol version " . $handshake->version . "\n";
+            }
             my @validator_result = $validator->($handshake->req);
             $handle->push_write($handshake->to_string);
             $cv_connection->send(AnyEvent::WebSocket::Connection->new(handle => $handle), @validator_result);
@@ -131,7 +134,19 @@ AnyEvent::WebSocket::Server - WebSocket server for AnyEvent
 =head1 DESCRIPTION
 
 This class is an implementation of the WebSocket server in an L<AnyEvent> context.
-This version does not support SSL/TLS.
+
+=over
+
+=item *
+
+Currently this module supports WebSocket protocol version 13 only. See L<RFC 6455|https://tools.ietf.org/html/rfc6455> for detail.
+
+=item *
+
+Currently this module does not support SSL/TLS.
+
+=back
+
 
 =head1 CLASS METHODS
 
@@ -152,7 +167,7 @@ The validator is called like
 
     @validator_result = $validator->($request)
 
-where C<$request> is a C<Protocol::WebSocket::Request> object.
+where C<$request> is a L<Protocol::WebSocket::Request> object.
 
 If you reject the C<$request>, throw an exception.
 
@@ -193,7 +208,7 @@ You can use C<$connection> to send and receive data through WebSocket. See L<Any
 Note that even if C<$conn_cv> croaks, the connection socket C<$fh> remains intact.
 You can communicate with the client via C<$fh> unless the client has already closed it.
 
-=head2 $conn_cv = $sever->establish_psgi($psgi_env, [$fh])
+=head2 $conn_cv = $server->establish_psgi($psgi_env, [$fh])
 
 The same as C<establish()> method except that the request is in the form of L<PSGI> environment.
 B<This method is experimental. The API may change in the future.>
@@ -239,6 +254,24 @@ The following server accepts WebSocket URLs such as C<ws://localhost:8080/2013/1
         });
     };
 
+=head1 SEE ALSO
+
+=over
+
+=item L<AnyEvent::WebSocket::Client>
+
+L<AnyEvent>-based WebSocket client implementation.
+
+=item L<Net::WebSocket::Server>
+
+Minimalistic stand-alone WebSocket server. It uses its own event loop mechanism.
+
+=item L<Net::Async::WebSocket>
+
+Stand-alone WebSocket server and client implementation using L<IO::Async>
+
+
+=back
 
 =head1 AUTHOR
 
