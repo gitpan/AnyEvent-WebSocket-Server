@@ -6,7 +6,7 @@ build_requires:
   AnyEvent: 0
   AnyEvent::Handle: 0
   AnyEvent::Socket: 0
-  AnyEvent::WebSocket::Client: 0.17
+  AnyEvent::WebSocket::Client: 0.20
   Module::Build::Pluggable::CPANfile: 0.02
   Protocol::WebSocket::Frame: 0
   Protocol::WebSocket::Handshake::Client: 0
@@ -37,13 +37,13 @@ no_index:
 provides:
   AnyEvent::WebSocket::Server:
     file: lib/AnyEvent/WebSocket/Server.pm
-    version: 0.02
+    version: 0.03
 requires:
   AnyEvent::Handle: 0
-  AnyEvent::WebSocket::Client: 0.17
+  AnyEvent::WebSocket::Client: 0.20
   Carp: 0
   Protocol::WebSocket::Handshake::Server: 0
   Try::Tiny: 0
 resources:
   repository: git://github.com/debug-ito/AnyEvent-WebSocket-Server.git
-version: 0.02
+version: 0.03
