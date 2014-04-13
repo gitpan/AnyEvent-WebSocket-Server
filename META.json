@@ -4,7 +4,7 @@
       "Toshio Ito <toshioito@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4003, CPAN::Meta::Converter version 2.132140",
+   "generated_by" : "Module::Build version 0.42",
    "license" : [
       "perl_5"
    ],
@@ -43,7 +43,7 @@
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.40",
+            "Module::Build" : "0.42",
             "Module::Build::Pluggable" : "0.09",
             "Module::Build::Pluggable::CPANfile" : "0.02"
          }
@@ -58,17 +58,11 @@
          }
       }
    },
-   "provides" : {
-      "AnyEvent::WebSocket::Server" : {
-         "file" : "lib/AnyEvent/WebSocket/Server.pm",
-         "version" : "0.03"
-      }
-   },
    "release_status" : "stable",
    "resources" : {
       "repository" : {
          "url" : "git://github.com/debug-ito/AnyEvent-WebSocket-Server.git"
       }
    },
-   "version" : "0.03"
+   "version" : "0.04"
 }
